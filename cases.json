@@ -1,0 +1,882 @@
+[
+  {
+    "caseId": "DF-2026-E9D4F8DE",
+    "fileName": "p-4.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 292787,
+    "mediaHash": "2cd0b0fabc1409d321558be161e40c0c71bf9ec28e54d617d436f3bfd3418554",
+    "isDeepfake": false,
+    "confidence": 100,
+    "score": 0.001,
+    "severity": "low",
+    "status": "pending",
+    "govtRef": null,
+    "location": null,
+    "description": null,
+    "maskedUid": "CIT-026CF353",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-E9D4F8DE",
+        "mediaHash": "2cd0b0fabc1409d321558be161e40c0c71bf9ec28e54d617d436f3bfd3418554",
+        "confidence": 100,
+        "timestamp": "2026-04-12T10:31:45.853Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "3d3cdf0891a30cf73f04359b8bf33b50a5e24fa64d3c5c9b824c1128d87747cd"
+      }
+    ],
+    "timestamp": "2026-04-12T10:31:45.854Z",
+    "ip": "::1"
+  },
+  {
+    "caseId": "DF-2026-B8424FE2",
+    "fileName": "p-4.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 292787,
+    "mediaHash": "2cd0b0fabc1409d321558be161e40c0c71bf9ec28e54d617d436f3bfd3418554",
+    "isDeepfake": false,
+    "confidence": 100,
+    "score": 0.001,
+    "severity": "low",
+    "status": "pending",
+    "govtRef": null,
+    "location": null,
+    "description": null,
+    "maskedUid": "CIT-537FDFD6",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-B8424FE2",
+        "mediaHash": "2cd0b0fabc1409d321558be161e40c0c71bf9ec28e54d617d436f3bfd3418554",
+        "confidence": 100,
+        "timestamp": "2026-04-12T10:31:58.318Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "08397b8c71cf294b1d56c11ba92cb2c9197fb88690ddfd5c02f53f9bc36e781b"
+      }
+    ],
+    "timestamp": "2026-04-12T10:31:58.318Z",
+    "ip": "::1"
+  },
+  {
+    "caseId": "DF-2026-C576D6C9",
+    "fileName": "6G research and references overview.png",
+    "fileType": "image/png",
+    "fileSize": 2334297,
+    "mediaHash": "9bf2c7d6cb07b4dc44210a8274f3ed4b9ec304003069eb31e6326da3307dc4ce",
+    "isDeepfake": false,
+    "confidence": 100,
+    "score": 0.001,
+    "severity": "low",
+    "status": "pending",
+    "govtRef": null,
+    "location": null,
+    "description": null,
+    "maskedUid": "CIT-06EB8926",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-C576D6C9",
+        "mediaHash": "9bf2c7d6cb07b4dc44210a8274f3ed4b9ec304003069eb31e6326da3307dc4ce",
+        "confidence": 100,
+        "timestamp": "2026-04-12T10:38:01.935Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "4123961593981abe48254503cbd32abcf8b017bde9ebf7eb5dffb604d36e1828"
+      }
+    ],
+    "timestamp": "2026-04-12T10:38:01.935Z"
+  },
+  {
+    "caseId": "DF-2026-A4020CC1",
+    "fileName": "smart cities.png",
+    "fileType": "image/png",
+    "fileSize": 2652860,
+    "mediaHash": "7a6e0772b18f70d7963b7b910ed059c66cc2a6e087484c1754cb3e130927d2b7",
+    "isDeepfake": false,
+    "confidence": 100,
+    "score": 0.001,
+    "severity": "low",
+    "status": "pending",
+    "govtRef": null,
+    "location": null,
+    "description": null,
+    "maskedUid": "CIT-DFB9D472",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-A4020CC1",
+        "mediaHash": "7a6e0772b18f70d7963b7b910ed059c66cc2a6e087484c1754cb3e130927d2b7",
+        "confidence": 100,
+        "timestamp": "2026-04-12T10:47:48.002Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "ca883ab89e17e2aaf88054c8f255aa063e734ac950721ea0adfa59b2e0a18a79"
+      }
+    ],
+    "timestamp": "2026-04-12T10:47:48.003Z"
+  },
+  {
+    "caseId": "DF-2026-7E728451",
+    "fileName": "network-6g.jpg",
+    "fileType": "image/jpeg",
+    "fileSize": 588503,
+    "mediaHash": "4b6c302b96cdb799032d68a4ce5cd9bf1d2d43ba76844c40573837a6578f4274",
+    "isDeepfake": false,
+    "confidence": 100,
+    "score": 0.001,
+    "severity": "low",
+    "status": "pending",
+    "govtRef": null,
+    "location": null,
+    "description": null,
+    "maskedUid": "CIT-81458190",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-7E728451",
+        "mediaHash": "4b6c302b96cdb799032d68a4ce5cd9bf1d2d43ba76844c40573837a6578f4274",
+        "confidence": 100,
+        "timestamp": "2026-04-12T11:01:18.837Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "dc0488abd1dee55113b57d8d6e6cdcc7abfa09f9922ccd880b3506990d739253"
+      }
+    ],
+    "timestamp": "2026-04-12T11:01:18.838Z",
+    "ip": "::1"
+  },
+  {
+    "caseId": "DF-2026-06B321B2",
+    "fileName": "lucid-origin_anime_style_young_boy_wearing_straw_hat_confident_expression_explaining_somethin-0 (1).jpg",
+    "fileType": "image/jpeg",
+    "fileSize": 372803,
+    "mediaHash": "7b657916b6f156b0680f4230cf1e11d965f3fc2faf138e9df2edeec88f77a171",
+    "isDeepfake": false,
+    "confidence": 100,
+    "score": 0.001,
+    "severity": "low",
+    "status": "pending",
+    "govtRef": null,
+    "location": null,
+    "description": null,
+    "maskedUid": "CIT-754D50F2",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-06B321B2",
+        "mediaHash": "7b657916b6f156b0680f4230cf1e11d965f3fc2faf138e9df2edeec88f77a171",
+        "confidence": 100,
+        "timestamp": "2026-04-12T11:05:21.654Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "a2d83e4c30da21a7a2cf3c1a678ab7d444a872115c88647d6c2873d7f1ce4d61"
+      }
+    ],
+    "timestamp": "2026-04-12T11:05:21.655Z",
+    "ip": "::1"
+  },
+  {
+    "caseId": "DF-2026-E5E8FB05",
+    "fileName": "lucid-origin_anime_style_young_boy_wearing_straw_hat_confident_expression_explaining_somethin-0 (1).jpg",
+    "fileType": "image/jpeg",
+    "fileSize": 372803,
+    "mediaHash": "7b657916b6f156b0680f4230cf1e11d965f3fc2faf138e9df2edeec88f77a171",
+    "isDeepfake": false,
+    "confidence": 100,
+    "score": 0.001,
+    "severity": "low",
+    "status": "pending",
+    "govtRef": null,
+    "location": null,
+    "description": null,
+    "maskedUid": "CIT-48A2101C",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-E5E8FB05",
+        "mediaHash": "7b657916b6f156b0680f4230cf1e11d965f3fc2faf138e9df2edeec88f77a171",
+        "confidence": 100,
+        "timestamp": "2026-04-12T11:05:29.224Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "fdbb93267762f02dfadc4faba598942b5880a306007f6acf706cd26f373af1cd"
+      }
+    ],
+    "timestamp": "2026-04-12T11:05:29.225Z",
+    "ip": "::1"
+  },
+  {
+    "caseId": "DF-2026-B473E74E",
+    "fileName": "Exploring 6G technology features.png",
+    "fileType": "image/png",
+    "fileSize": 1906704,
+    "mediaHash": "09a61c4ba5d22f35f21c432011cea04e10a1db8166e5051cfb15e8ef145023b3",
+    "isDeepfake": false,
+    "confidence": 100,
+    "score": 0.001,
+    "severity": "low",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-E48CAB15",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-B473E74E",
+        "mediaHash": "09a61c4ba5d22f35f21c432011cea04e10a1db8166e5051cfb15e8ef145023b3",
+        "confidence": 100,
+        "timestamp": "2026-04-12T11:45:57.235Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "589926d8935a00276cd3a3261ee98e0369c8ccd25ccbfe0c7d150b11146e7079"
+      }
+    ],
+    "timestamp": "2026-04-12T11:45:57.235Z"
+  },
+  {
+    "caseId": "DF-2026-036845B8",
+    "fileName": "p-3.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 240687,
+    "mediaHash": "22b5ac6387d48c582d50a6568ab853dd7772fd337801a5c76ebfefa173f6b0a2",
+    "isDeepfake": false,
+    "confidence": 100,
+    "score": 0.001,
+    "severity": "low",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-E2613C13",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-036845B8",
+        "mediaHash": "22b5ac6387d48c582d50a6568ab853dd7772fd337801a5c76ebfefa173f6b0a2",
+        "confidence": 100,
+        "timestamp": "2026-04-12T11:51:38.215Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "c2166ca29c4c40a7aa6a0ec716f4f2178fb94830e199edec253aa6c26707091d"
+      }
+    ],
+    "timestamp": "2026-04-12T11:51:38.215Z"
+  },
+  {
+    "caseId": "DF-2026-C3656926",
+    "fileName": "eg.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 33783,
+    "mediaHash": "fb992c64d54926c8d7a5629da5de66d9128bbee82683d83ef32524a4b7afcaf1",
+    "isDeepfake": false,
+    "confidence": 99,
+    "score": 0.01,
+    "severity": "low",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-858766B6",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-C3656926",
+        "mediaHash": "fb992c64d54926c8d7a5629da5de66d9128bbee82683d83ef32524a4b7afcaf1",
+        "confidence": 99,
+        "timestamp": "2026-04-12T12:12:46.291Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "2223abcb18be8b0cc5f07bcf392605cc64ddd749875592b4bae334e4d9809502"
+      }
+    ],
+    "timestamp": "2026-04-12T12:12:46.291Z"
+  },
+  {
+    "caseId": "DF-2026-9A63FF8D",
+    "fileName": "eg-2.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 75399,
+    "mediaHash": "70c6897315b8e5fd38fbc9cc771197bb7b799320220f8d9fbf7ec99c7f079908",
+    "isDeepfake": true,
+    "confidence": 94,
+    "score": 0.94,
+    "severity": "critical",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-99430FEA",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-9A63FF8D",
+        "mediaHash": "70c6897315b8e5fd38fbc9cc771197bb7b799320220f8d9fbf7ec99c7f079908",
+        "confidence": 94,
+        "timestamp": "2026-04-12T12:25:36.231Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "202530c28f24939f38fb203f16e9d84dd050676aacc228fc220b72a9327d1743"
+      }
+    ],
+    "timestamp": "2026-04-12T12:25:36.231Z"
+  },
+  {
+    "caseId": "DF-2026-A23160EE",
+    "fileName": "eg-2.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 75399,
+    "mediaHash": "70c6897315b8e5fd38fbc9cc771197bb7b799320220f8d9fbf7ec99c7f079908",
+    "isDeepfake": true,
+    "confidence": 94,
+    "score": 0.94,
+    "severity": "critical",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-6377F30E",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-A23160EE",
+        "mediaHash": "70c6897315b8e5fd38fbc9cc771197bb7b799320220f8d9fbf7ec99c7f079908",
+        "confidence": 94,
+        "timestamp": "2026-04-12T12:28:29.350Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "6b678cb9d8b4d8cfa7d8b93632a079b2de3ac7734ae462bc764140a8ee93b5f2"
+      }
+    ],
+    "timestamp": "2026-04-12T12:28:29.350Z"
+  },
+  {
+    "caseId": "DF-2026-7EBBD975",
+    "fileName": "smart cities.png",
+    "fileType": "image/png",
+    "fileSize": 2652860,
+    "mediaHash": "7a6e0772b18f70d7963b7b910ed059c66cc2a6e087484c1754cb3e130927d2b7",
+    "isDeepfake": false,
+    "confidence": 100,
+    "score": 0.001,
+    "severity": "low",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-DFF81CDA",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-7EBBD975",
+        "mediaHash": "7a6e0772b18f70d7963b7b910ed059c66cc2a6e087484c1754cb3e130927d2b7",
+        "confidence": 100,
+        "timestamp": "2026-04-12T12:40:35.896Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "0f2a0e7207aeba5f7d5a58dbd0f42ca0e679c606f6f367a5cf83b1d67dbcbf5a"
+      }
+    ],
+    "timestamp": "2026-04-12T12:40:35.896Z"
+  },
+  {
+    "caseId": "DF-2026-5CF0F38F",
+    "fileName": "eg-1.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 362896,
+    "mediaHash": "6aea0a89e4922bf8406253988ea1f887044124525598fcc8783857980c9441ad",
+    "isDeepfake": false,
+    "confidence": 100,
+    "score": 0.001,
+    "severity": "low",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-9669C733",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-5CF0F38F",
+        "mediaHash": "6aea0a89e4922bf8406253988ea1f887044124525598fcc8783857980c9441ad",
+        "confidence": 100,
+        "timestamp": "2026-04-12T15:24:14.713Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "0b1359f7a2bd0e58e64e028145195e9bd1863380adda750f31ecdad1dce8fcbf"
+      }
+    ],
+    "timestamp": "2026-04-12T15:24:14.713Z"
+  },
+  {
+    "caseId": "DF-2026-C208CFF2",
+    "fileName": "23.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 619289,
+    "mediaHash": "c7264c74e38a7f8b93935e8a3687ad2b7c25a32830ea9cde85d115867abac7d8",
+    "isDeepfake": false,
+    "confidence": 100,
+    "score": 0.001,
+    "severity": "low",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-D19ACADE",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-C208CFF2",
+        "mediaHash": "c7264c74e38a7f8b93935e8a3687ad2b7c25a32830ea9cde85d115867abac7d8",
+        "confidence": 100,
+        "timestamp": "2026-04-12T15:25:22.878Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "df0df7b65c1e7b51ac6a2f6dede51b684f9374bab608de23df1275be88dc2c02"
+      }
+    ],
+    "timestamp": "2026-04-12T15:25:22.878Z"
+  },
+  {
+    "caseId": "DF-2026-BDBC9B21",
+    "fileName": "eg-1.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 362896,
+    "mediaHash": "6aea0a89e4922bf8406253988ea1f887044124525598fcc8783857980c9441ad",
+    "isDeepfake": false,
+    "confidence": 100,
+    "score": 0.001,
+    "severity": "low",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-2E7E83C9",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-BDBC9B21",
+        "mediaHash": "6aea0a89e4922bf8406253988ea1f887044124525598fcc8783857980c9441ad",
+        "confidence": 100,
+        "timestamp": "2026-04-12T15:39:42.728Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "263c3fc324c39d821fee52ae7251cc31d9a27478558dd51259d4935a27fa0add"
+      }
+    ],
+    "timestamp": "2026-04-12T15:39:42.729Z"
+  },
+  {
+    "caseId": "DF-2026-A038F85C",
+    "fileName": "23.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 619289,
+    "mediaHash": "c7264c74e38a7f8b93935e8a3687ad2b7c25a32830ea9cde85d115867abac7d8",
+    "isDeepfake": false,
+    "confidence": 100,
+    "score": 0.001,
+    "severity": "low",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-931B41DA",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-A038F85C",
+        "mediaHash": "c7264c74e38a7f8b93935e8a3687ad2b7c25a32830ea9cde85d115867abac7d8",
+        "confidence": 100,
+        "timestamp": "2026-04-12T15:40:12.135Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "a410b69f295a3bb7a78cdc4d9d817fa2bec2c9718575a0c40981012489159c2d"
+      }
+    ],
+    "timestamp": "2026-04-12T15:40:12.135Z"
+  },
+  {
+    "caseId": "DF-2026-F6AF9049",
+    "fileName": "23.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 619289,
+    "mediaHash": "c7264c74e38a7f8b93935e8a3687ad2b7c25a32830ea9cde85d115867abac7d8",
+    "isDeepfake": false,
+    "confidence": 94,
+    "score": 0.445,
+    "severity": "medium",
+    "status": "pending",
+    "timestamp": "2026-04-12T15:53:54.689Z"
+  },
+  {
+    "caseId": "DF-2026-3CED9BEC",
+    "fileName": "eg-1.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 362896,
+    "mediaHash": "6aea0a89e4922bf8406253988ea1f887044124525598fcc8783857980c9441ad",
+    "isDeepfake": false,
+    "confidence": 76,
+    "score": 0.48,
+    "severity": "medium",
+    "status": "pending",
+    "timestamp": "2026-04-12T15:54:10.075Z"
+  },
+  {
+    "caseId": "DF-2026-CEF2264F",
+    "fileName": "eg-2.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 75399,
+    "mediaHash": "70c6897315b8e5fd38fbc9cc771197bb7b799320220f8d9fbf7ec99c7f079908",
+    "isDeepfake": false,
+    "confidence": 69,
+    "score": 0.495,
+    "severity": "medium",
+    "status": "pending",
+    "timestamp": "2026-04-12T15:54:20.595Z"
+  },
+  {
+    "caseId": "DF-2026-873870FA",
+    "fileName": "23.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 619289,
+    "mediaHash": "c7264c74e38a7f8b93935e8a3687ad2b7c25a32830ea9cde85d115867abac7d8",
+    "isDeepfake": false,
+    "confidence": 100,
+    "score": 0.001,
+    "severity": "low",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-866A0791",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-873870FA",
+        "mediaHash": "c7264c74e38a7f8b93935e8a3687ad2b7c25a32830ea9cde85d115867abac7d8",
+        "confidence": 100,
+        "timestamp": "2026-04-12T16:34:30.378Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "cbfd53d7dd3347d95ba29bf3f4c59731979f3dfd6fbed08afbff87fb169dcc3a"
+      }
+    ],
+    "timestamp": "2026-04-12T16:34:30.378Z"
+  },
+  {
+    "caseId": "DF-2026-B3E8FD79",
+    "fileName": "eg-2.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 75399,
+    "mediaHash": "70c6897315b8e5fd38fbc9cc771197bb7b799320220f8d9fbf7ec99c7f079908",
+    "isDeepfake": true,
+    "confidence": 94,
+    "score": 0.94,
+    "severity": "critical",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-A5886712",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-B3E8FD79",
+        "mediaHash": "70c6897315b8e5fd38fbc9cc771197bb7b799320220f8d9fbf7ec99c7f079908",
+        "confidence": 94,
+        "timestamp": "2026-04-12T16:34:55.247Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "d69140e1720dc15a6ce3535494478d28cf2c088619af0c545f2412c9f5d509ad"
+      }
+    ],
+    "timestamp": "2026-04-12T16:34:55.248Z"
+  },
+  {
+    "caseId": "DF-2026-D87F1758",
+    "fileName": "eg-1.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 362896,
+    "mediaHash": "6aea0a89e4922bf8406253988ea1f887044124525598fcc8783857980c9441ad",
+    "isDeepfake": false,
+    "confidence": 100,
+    "score": 0.001,
+    "severity": "low",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-B3BCD890",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-D87F1758",
+        "mediaHash": "6aea0a89e4922bf8406253988ea1f887044124525598fcc8783857980c9441ad",
+        "confidence": 100,
+        "timestamp": "2026-04-12T16:36:21.656Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "57e1d4c923c1083ff65fc654f7cb716f98c369dea4e8549dd7c367ceb51097ee"
+      }
+    ],
+    "timestamp": "2026-04-12T16:36:21.656Z"
+  },
+  {
+    "caseId": "DF-2026-BC639EAC",
+    "fileName": "Screenshot 2026-04-12 220706.png",
+    "fileType": "image/png",
+    "fileSize": 74457,
+    "mediaHash": "da80e78b758245a6aa34f62fb568bb67c0839cd7bc6e520b19b48da23264d347",
+    "isDeepfake": true,
+    "confidence": 96,
+    "score": 0.96,
+    "severity": "critical",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-4018DE01",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-BC639EAC",
+        "mediaHash": "da80e78b758245a6aa34f62fb568bb67c0839cd7bc6e520b19b48da23264d347",
+        "confidence": 96,
+        "timestamp": "2026-04-12T16:38:22.839Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "fcaa59ef413a818149bdda37ff059c464e4affec14f185c126b4dfb004ed8110"
+      }
+    ],
+    "timestamp": "2026-04-12T16:38:22.839Z"
+  },
+  {
+    "caseId": "DF-2026-17BD159D",
+    "fileName": "Screenshot 2026-04-12 220854.png",
+    "fileType": "image/png",
+    "fileSize": 137600,
+    "mediaHash": "c94665a273bce7708b55c96446e2d0799682deeea643699b81a0d8c433ebb9ad",
+    "isDeepfake": true,
+    "confidence": 96,
+    "score": 0.96,
+    "severity": "critical",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-BDEBD11D",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-17BD159D",
+        "mediaHash": "c94665a273bce7708b55c96446e2d0799682deeea643699b81a0d8c433ebb9ad",
+        "confidence": 96,
+        "timestamp": "2026-04-12T16:39:19.525Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "35aa88c90705a662d5348ddadd0ca19d92705a05afa18d83cd5eed384018cc3e"
+      }
+    ],
+    "timestamp": "2026-04-12T16:39:19.525Z"
+  },
+  {
+    "caseId": "DF-2026-FA04878E",
+    "fileName": "eg-1.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 362896,
+    "mediaHash": "6aea0a89e4922bf8406253988ea1f887044124525598fcc8783857980c9441ad",
+    "isDeepfake": false,
+    "confidence": 100,
+    "score": 0.001,
+    "severity": "low",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-EEE69557",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-FA04878E",
+        "mediaHash": "6aea0a89e4922bf8406253988ea1f887044124525598fcc8783857980c9441ad",
+        "confidence": 100,
+        "timestamp": "2026-04-14T05:47:03.139Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "7472a7a141d9bc9f251eb7626dec44bf2b0c5f3a77c9a0c7cecbc499ad8cf816"
+      }
+    ],
+    "timestamp": "2026-04-14T05:47:03.144Z"
+  },
+  {
+    "caseId": "DF-2026-39E837D4",
+    "fileName": "eg-1.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 362896,
+    "mediaHash": "6aea0a89e4922bf8406253988ea1f887044124525598fcc8783857980c9441ad",
+    "isDeepfake": false,
+    "confidence": 100,
+    "score": 0.001,
+    "severity": "low",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-E2DF5BBA",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-39E837D4",
+        "mediaHash": "6aea0a89e4922bf8406253988ea1f887044124525598fcc8783857980c9441ad",
+        "confidence": 100,
+        "timestamp": "2026-04-14T05:51:01.667Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "f293d7a76e45e98da5b4020597536f8ecfa75f20fa315141595c3c091ed751e2"
+      }
+    ],
+    "timestamp": "2026-04-14T05:51:01.667Z"
+  },
+  {
+    "caseId": "DF-2026-88194ED7",
+    "fileName": "eg.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 33783,
+    "mediaHash": "fb992c64d54926c8d7a5629da5de66d9128bbee82683d83ef32524a4b7afcaf1",
+    "isDeepfake": false,
+    "confidence": 99,
+    "score": 0.01,
+    "severity": "low",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-DE7AC4B3",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-88194ED7",
+        "mediaHash": "fb992c64d54926c8d7a5629da5de66d9128bbee82683d83ef32524a4b7afcaf1",
+        "confidence": 99,
+        "timestamp": "2026-04-14T05:58:01.965Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "5bc764c89c9844134f0960e30796d656368889dc5d811285ab5c2d841036dbf8"
+      }
+    ],
+    "timestamp": "2026-04-14T05:58:01.969Z"
+  },
+  {
+    "caseId": "DF-2026-0CA0BD57",
+    "fileName": "eg-2.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 75399,
+    "mediaHash": "70c6897315b8e5fd38fbc9cc771197bb7b799320220f8d9fbf7ec99c7f079908",
+    "isDeepfake": true,
+    "confidence": 94,
+    "score": 0.94,
+    "severity": "critical",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-12A24A3B",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-0CA0BD57",
+        "mediaHash": "70c6897315b8e5fd38fbc9cc771197bb7b799320220f8d9fbf7ec99c7f079908",
+        "confidence": 94,
+        "timestamp": "2026-04-14T05:58:40.011Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "fd583db60d36e4af19798ebe6df6d19dbec636142719d2309a60cf76ee52aec2"
+      }
+    ],
+    "timestamp": "2026-04-14T05:58:40.011Z"
+  },
+  {
+    "caseId": "DF-2026-84863885",
+    "fileName": "eg-2.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 75399,
+    "mediaHash": "70c6897315b8e5fd38fbc9cc771197bb7b799320220f8d9fbf7ec99c7f079908",
+    "isDeepfake": true,
+    "detectionType": "deepfake",
+    "deepfakeScore": 0.94,
+    "aiGenScore": 0.46,
+    "confidence": 94,
+    "score": 0.94,
+    "severity": "critical",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-AD7ECD44",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-84863885",
+        "mediaHash": "70c6897315b8e5fd38fbc9cc771197bb7b799320220f8d9fbf7ec99c7f079908",
+        "confidence": 94,
+        "timestamp": "2026-04-14T12:07:50.182Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "59a2966e8cc629151d8acf0272d7f4ac4c727a68d2ce482443458d56347d9c65"
+      }
+    ],
+    "timestamp": "2026-04-14T12:07:50.182Z"
+  },
+  {
+    "caseId": "DF-2026-BD35DB4F",
+    "fileName": "eg-1.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 362896,
+    "mediaHash": "6aea0a89e4922bf8406253988ea1f887044124525598fcc8783857980c9441ad",
+    "isDeepfake": false,
+    "detectionType": "authentic",
+    "deepfakeScore": 0.001,
+    "aiGenScore": 0.06,
+    "confidence": 100,
+    "score": 0.999,
+    "severity": "critical",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-23A62DEB",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-BD35DB4F",
+        "mediaHash": "6aea0a89e4922bf8406253988ea1f887044124525598fcc8783857980c9441ad",
+        "confidence": 100,
+        "timestamp": "2026-04-14T12:08:47.101Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "a8bec3f91e2ea0b70c1f84e9adf4abb6792d53abe951dfeec626da270ff95860"
+      }
+    ],
+    "timestamp": "2026-04-14T12:08:47.101Z"
+  },
+  {
+    "caseId": "DF-2026-18B8CB8D",
+    "fileName": "eg-1.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 362896,
+    "mediaHash": "6aea0a89e4922bf8406253988ea1f887044124525598fcc8783857980c9441ad",
+    "isDeepfake": false,
+    "detectionType": "authentic",
+    "deepfakeScore": 0.001,
+    "aiGenScore": 0.06,
+    "confidence": 100,
+    "score": 0.999,
+    "severity": "critical",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-D066BA16",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-18B8CB8D",
+        "mediaHash": "6aea0a89e4922bf8406253988ea1f887044124525598fcc8783857980c9441ad",
+        "confidence": 100,
+        "timestamp": "2026-04-14T12:21:47.810Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "60d726c630f541559399f2942df3f275e24b5fbbec485ba2b8cd5e0890f7bd52"
+      }
+    ],
+    "timestamp": "2026-04-14T12:21:47.810Z"
+  },
+  {
+    "caseId": "DF-2026-64870464",
+    "fileName": "23.jpeg",
+    "fileType": "image/jpeg",
+    "fileSize": 619289,
+    "mediaHash": "c7264c74e38a7f8b93935e8a3687ad2b7c25a32830ea9cde85d115867abac7d8",
+    "isDeepfake": true,
+    "detectionType": "ai_generated",
+    "deepfakeScore": 0.001,
+    "aiGenScore": 0.84,
+    "confidence": 84,
+    "score": 0.84,
+    "severity": "high",
+    "status": "pending",
+    "govtRef": null,
+    "maskedUid": "CIT-1C14378F",
+    "evidenceChain": [
+      {
+        "index": 0,
+        "action": "CASE_CREATED",
+        "caseId": "DF-2026-64870464",
+        "mediaHash": "c7264c74e38a7f8b93935e8a3687ad2b7c25a32830ea9cde85d115867abac7d8",
+        "confidence": 84,
+        "timestamp": "2026-04-14T12:22:22.211Z",
+        "prevHash": "0000000000000000000000000000000000000000000000000000000000000000",
+        "hash": "2754198b810ae8bb4ab3f0c6784925622c8aee0dba129abd195ec4ec5652d0c4"
+      }
+    ],
+    "timestamp": "2026-04-14T12:22:22.211Z"
+  }
+]

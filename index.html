@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>DeepShield — Govt Deepfake Detection</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0e1a;--bg2:#0f1526;--bg3:#151c30;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.12);
+  --text:#e2e8f0;--text2:#94a3b8;--text3:#4a5568;
+  --accent:#3b82f6;--green:#22c55e;--red:#ef4444;
+  --yellow:#f59e0b;--purple:#8b5cf6;--cyan:#06b6d4;--orange:#f97316;
+  --glow-r:rgba(239,68,68,0.6);--glow-g:rgba(34,197,94,0.6);--glow-o:rgba(249,115,22,0.6);
+  --radius:12px;--radius-sm:8px;--sidebar-w:220px;
+}
+html,body{height:100%;font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);overflow:hidden}
+.ripple-host{position:relative;overflow:hidden}
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,0.18);transform:scale(0);animation:ripp .5s linear;pointer-events:none}
+@keyframes ripp{to{transform:scale(4);opacity:0}}
+.shell{display:flex;height:100vh;width:100vw;overflow:hidden}
+.sidebar{width:var(--sidebar-w);min-width:var(--sidebar-w);height:100vh;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:50;transition:transform .3s}
+.s-logo{padding:20px 18px 16px;border-bottom:1px solid var(--border)}
+.s-logo-mark{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--purple));display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:10px;box-shadow:0 0 16px rgba(59,130,246,.4)}
+.s-logo-title{font-size:15px;font-weight:600;color:#fff}
+.s-logo-sub{font-size:10px;color:var(--text3);margin-top:2px;letter-spacing:.5px;text-transform:uppercase}
+.s-nav{padding:10px 0;flex:1;overflow-y:auto}
+.s-item{display:flex;align-items:center;gap:10px;padding:10px 18px;font-size:13px;color:var(--text2);cursor:pointer;border-left:2px solid transparent;transition:all .18s;position:relative;overflow:hidden}
+.s-item:hover{background:rgba(255,255,255,.04);color:var(--text)}
+.s-item.act{color:#fff;border-left-color:var(--accent);background:rgba(59,130,246,.1)}
+.s-item.act .s-icon{color:var(--accent)}
+.s-icon{font-size:15px;width:18px;text-align:center}
+.s-foot{padding:14px 18px;border-top:1px solid var(--border);font-size:11px;color:var(--text3)}
+.s-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-right:6px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(34,197,94,.4)}50%{opacity:.6;box-shadow:0 0 0 4px rgba(34,197,94,0)}}
+.menu-btn{display:none;position:fixed;top:12px;left:12px;z-index:200;width:36px;height:36px;border-radius:8px;background:var(--bg2);border:1px solid var(--border2);color:var(--text);font-size:18px;cursor:pointer;align-items:center;justify-content:center}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:40}
+.main{flex:1;height:100vh;overflow-y:auto;display:flex;flex-direction:column;background:var(--bg)}
+.page{display:none;padding:24px;flex:1;animation:fadeIn .25s ease}
+.page.act{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.page-title{font-size:20px;font-weight:600;color:#fff}
+.page-sub{font-size:12px;color:var(--text3);margin-top:3px;text-transform:uppercase;letter-spacing:.5px}
+.badge-role{font-size:11px;padding:5px 12px;border:1px solid rgba(59,130,246,.4);color:var(--accent);border-radius:20px;background:rgba(59,130,246,.08)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:20px}
+.stat{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;transition:transform .2s,box-shadow .2s;cursor:default;position:relative;overflow:hidden}
+.stat::before{content:'';position:absolute;inset:0;border-radius:var(--radius);background:linear-gradient(135deg,rgba(255,255,255,.03) 0%,transparent 60%);pointer-events:none}
+.stat:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.stat-lbl{font-size:11px;color:var(--text3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}
+.stat-val{font-size:26px;font-weight:600;color:#fff;line-height:1}
+.stat-delta{font-size:11px;margin-top:6px}
+.stat-icon{position:absolute;right:14px;top:14px;font-size:22px;opacity:.15}
+.stat.s-blue{border-top:2px solid var(--accent)}
+.stat.s-red{border-top:2px solid var(--red)}
+.stat.s-yellow{border-top:2px solid var(--yellow)}
+.stat.s-green{border-top:2px solid var(--green)}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:18px;margin-bottom:16px;transition:box-shadow .2s}
+.card:hover{box-shadow:0 4px 20px rgba(0,0,0,.25)}
+.card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.card-title{font-size:14px;font-weight:500;color:#fff}
+.tbl-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:600px}
+th{padding:10px 12px;text-align:left;font-size:10px;color:var(--text3);font-weight:500;border-bottom:1px solid var(--border);background:var(--bg3);text-transform:uppercase;letter-spacing:.5px}
+td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--text)}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,.02)}
+.pill{display:inline-block;font-size:10px;padding:3px 9px;border-radius:20px;border:1px solid;font-weight:500}
+.pill-pending{color:#f59e0b;border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.1)}
+.pill-review{color:var(--cyan);border-color:rgba(6,182,212,.3);background:rgba(6,182,212,.1)}
+.pill-escalated{color:var(--red);border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.1)}
+.pill-resolved{color:var(--green);border-color:rgba(34,197,94,.3);background:rgba(34,197,94,.1)}
+.pill-critical{color:var(--red);border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.1)}
+.pill-high{color:#f97316;border-color:rgba(249,115,22,.3);background:rgba(249,115,22,.1)}
+.pill-medium{color:var(--accent);border-color:rgba(59,130,246,.3);background:rgba(59,130,246,.1)}
+.pill-low{color:var(--text2);border-color:var(--border2);background:var(--bg3)}
+
+/* ── Detection type pills ── */
+.pill-deepfake{color:var(--red);border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.12);font-size:11px;padding:4px 10px}
+.pill-ai_generated{color:var(--orange);border-color:rgba(249,115,22,.4);background:rgba(249,115,22,.12);font-size:11px;padding:4px 10px}
+.pill-authentic{color:var(--green);border-color:rgba(34,197,94,.4);background:rgba(34,197,94,.12);font-size:11px;padding:4px 10px}
+
+.fake-lbl{color:var(--red);font-weight:600}
+.aigen-lbl{color:var(--orange);font-weight:600}
+.real-lbl{color:var(--green);font-weight:600}
+.upload-zone{border:2px dashed var(--border2);border-radius:var(--radius);padding:40px;text-align:center;cursor:pointer;transition:all .25s;margin-bottom:14px;background:var(--bg3)}
+.upload-zone:hover{border-color:var(--accent);background:rgba(59,130,246,.05);box-shadow:0 0 20px rgba(59,130,246,.1)}
+.upload-zone.drag{border-color:var(--accent);background:rgba(59,130,246,.08)}
+.upload-zone input{display:none}
+.upload-icon{font-size:36px;margin-bottom:12px}
+.upload-title{font-size:15px;font-weight:500;color:#fff}
+.upload-sub{font-size:12px;color:var(--text3);margin-top:5px}
+@keyframes popRed{0%{box-shadow:0 0 0 0 var(--glow-r);border-color:var(--red)}40%{box-shadow:0 0 0 20px transparent}100%{box-shadow:0 0 0 0 transparent;border-color:rgba(239,68,68,.3)}}
+@keyframes popOrange{0%{box-shadow:0 0 0 0 var(--glow-o);border-color:var(--orange)}40%{box-shadow:0 0 0 20px transparent}100%{box-shadow:0 0 0 0 transparent;border-color:rgba(249,115,22,.3)}}
+@keyframes popGreen{0%{box-shadow:0 0 0 0 var(--glow-g);border-color:var(--green)}40%{box-shadow:0 0 0 20px transparent}100%{box-shadow:0 0 0 0 transparent;border-color:rgba(34,197,94,.3)}}
+.pop-red{animation:popRed 1.4s ease-out forwards;border:2px solid var(--red)!important}
+.pop-orange{animation:popOrange 1.4s ease-out forwards;border:2px solid var(--orange)!important}
+.pop-green{animation:popGreen 1.4s ease-out forwards;border:2px solid var(--green)!important}
+@keyframes flashRed{0%,100%{background:transparent}30%{background:rgba(239,68,68,.08)}}
+@keyframes flashOrange{0%,100%{background:transparent}30%{background:rgba(249,115,22,.08)}}
+@keyframes flashGreen{0%,100%{background:transparent}30%{background:rgba(34,197,94,.08)}}
+.flash-red{animation:flashRed .9s ease-out}
+.flash-orange{animation:flashOrange .9s ease-out}
+.flash-green{animation:flashGreen .9s ease-out}
+.result-banner{padding:16px 18px;border-radius:var(--radius);display:flex;align-items:center;gap:16px;margin-bottom:16px;border:2px solid transparent}
+.result-banner.fake{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.3)}
+.result-banner.aigen{background:rgba(249,115,22,.08);border-color:rgba(249,115,22,.3)}
+.result-banner.real{background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.3)}
+.result-icon{font-size:32px}
+.result-verdict{font-size:18px;font-weight:600}
+.result-banner.fake .result-verdict{color:var(--red)}
+.result-banner.aigen .result-verdict{color:var(--orange)}
+.result-banner.real .result-verdict{color:var(--green)}
+.result-sub{font-size:12px;color:var(--text2);margin-top:4px}
+.meta-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.meta-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:13px}
+.meta-lbl{font-size:10px;color:var(--text3);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+.meta-val{font-size:15px;font-weight:600;color:#fff}
+.conf-bar{height:5px;background:var(--border);border-radius:3px;margin-top:8px;overflow:hidden}
+.conf-fill{height:100%;border-radius:3px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+
+/* ── Score bars (deepfake vs ai-gen) ── */
+.score-bars{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:13px;margin-bottom:14px}
+.score-row{margin-bottom:10px}
+.score-row:last-child{margin-bottom:0}
+.score-hdr{display:flex;justify-content:space-between;margin-bottom:5px}
+.score-name{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.4px}
+.score-pct{font-size:11px;font-weight:600}
+.score-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.score-bar-fill{height:100%;border-radius:3px;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
+
+.alert-box{padding:12px 14px;border-radius:var(--radius-sm);border:1px solid;font-size:13px;margin-bottom:12px}
+.alert-info{background:rgba(59,130,246,.08);border-color:rgba(59,130,246,.3);color:#93c5fd}
+.alert-danger{background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.3);color:#fca5a5}
+.alert-success{background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.3);color:#86efac}
+.alert-warn{background:rgba(245,158,11,.08);border-color:rgba(245,158,11,.3);color:#fcd34d}
+.alert-orange{background:rgba(249,115,22,.08);border-color:rgba(249,115,22,.3);color:#fdba74}
+.form-row{margin-bottom:14px}
+.form-lbl{font-size:12px;color:var(--text2);margin-bottom:6px;display:block;text-transform:uppercase;letter-spacing:.4px}
+.form-inp{width:100%;padding:10px 14px;border:1px solid var(--border2);border-radius:var(--radius-sm);background:var(--bg3);color:var(--text);font-size:13px;font-family:'Inter',sans-serif;transition:border-color .2s}
+.form-inp:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(59,130,246,.15)}
+.btn{padding:9px 18px;border-radius:var(--radius-sm);border:1px solid var(--border2);background:var(--bg3);color:var(--text);cursor:pointer;font-size:13px;font-family:'Inter',sans-serif;font-weight:500;transition:all .18s;position:relative;overflow:hidden}
+.btn:hover{background:var(--bg2)}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:rgba(59,130,246,.15);border-color:rgba(59,130,246,.4);color:#93c5fd}
+.btn-primary:hover{background:rgba(59,130,246,.25)}
+.btn-danger{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.4);color:#fca5a5}
+.btn-danger:hover{background:rgba(239,68,68,.2)}
+.btn-success{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.4);color:#86efac}
+.btn-full{width:100%;padding:11px;font-size:14px}
+.hash-box{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--cyan);word-break:break-all;background:var(--bg3);padding:10px 12px;border-radius:var(--radius-sm);border:1px solid var(--border);line-height:1.6}
+.bars{display:flex;align-items:flex-end;gap:6px;height:80px;margin-top:12px}
+.bar{flex:1;background:rgba(59,130,246,.25);border-top:2px solid var(--accent);border-radius:3px 3px 0 0;min-height:4px;transition:height .7s cubic-bezier(.4,0,.2,1);cursor:pointer}
+.bar:hover{background:rgba(59,130,246,.4)}
+.bar-lbls{display:flex;gap:6px;margin-top:6px}
+.bar-lbl{flex:1;text-align:center;font-size:10px;color:var(--text3)}
+.chain-block{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.chain-node{padding:8px 16px;border:1px solid rgba(59,130,246,.3);border-radius:var(--radius-sm);background:rgba(59,130,246,.08);font-size:12px;color:#93c5fd;font-weight:500;white-space:nowrap}
+.chain-node.done{background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.3);color:#86efac}
+.chain-arrow{color:var(--text3);font-size:16px}
+.divider{height:1px;background:var(--border);margin:14px 0}
+@keyframes scanline{0%{transform:translateY(-100%)}100%{transform:translateY(400%)}}
+.scan-anim{position:relative;overflow:hidden}
+.scan-anim::after{content:'';position:absolute;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);animation:scanline 1s linear infinite;pointer-events:none}
+.govt-overlay{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.85);align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+.govt-overlay.show{display:flex}
+.govt-modal{background:var(--bg2);border:1px solid rgba(239,68,68,.4);border-radius:var(--radius);width:90%;max-width:520px;overflow:hidden;animation:modalIn .4s cubic-bezier(.34,1.56,.64,1)}
+@keyframes modalIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.govt-header{background:linear-gradient(135deg,rgba(239,68,68,.15),rgba(139,92,246,.15));padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px}
+.govt-emblem{font-size:40px;line-height:1}
+.govt-header-text h2{font-size:15px;font-weight:600;color:#fff;margin-bottom:4px}
+.govt-header-text p{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px}
+.govt-body{padding:20px 24px}
+.govt-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
+.govt-row:last-child{border-bottom:none}
+.govt-key{font-size:12px;color:var(--text3);text-transform:uppercase;letter-spacing:.4px}
+.govt-val{font-size:13px;font-weight:500;color:#fff;font-family:'JetBrains Mono',monospace;text-align:right}
+.govt-val.success{color:var(--green)}
+.govt-val.accent{color:var(--cyan)}
+.govt-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:10px}
+.govt-ticker{background:rgba(239,68,68,.08);border-top:1px solid rgba(239,68,68,.2);padding:10px 24px;font-size:11px;color:#fca5a5;display:flex;align-items:center;gap:8px}
+.ticker-dot{width:6px;height:6px;border-radius:50%;background:var(--red);animation:pulse 1s infinite;flex-shrink:0}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+@media(max-width:768px){
+  .menu-btn{display:flex}
+  .sidebar{position:fixed;left:0;top:0;bottom:0;transform:translateX(-100%);z-index:100}
+  .sidebar.open{transform:translateX(0)}
+  .sidebar-overlay.open{display:block}
+  .page{padding:56px 14px 14px}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .meta-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+</style>
+</head>
+<body>
+<button class="menu-btn" id="menuBtn" onclick="toggleSidebar()">☰</button>
+<div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<div class="govt-overlay" id="govtOverlay">
+  <div class="govt-modal">
+    <div class="govt-header">
+      <div class="govt-emblem">🏛️</div>
+      <div class="govt-header-text"><h2>Ministry of Home Affairs</h2><p>Cyber Crime Wing — Case Escalation</p></div>
+    </div>
+    <div class="govt-body" id="govtBody"></div>
+    <div class="govt-ticker"><div class="ticker-dot"></div><span>Transmitted to National Cyber Crime Reporting Portal — cybercrime.gov.in</span></div>
+    <div class="govt-footer">
+      <button class="btn btn-success ripple-host" onclick="closeGovt()">✓ Acknowledged</button>
+      <a href="https://cybercrime.gov.in" target="_blank" class="btn btn-primary ripple-host">Open cybercrime.gov.in ↗</a>
+    </div>
+  </div>
+</div>
+
+<div class="shell">
+<nav class="sidebar" id="sidebar">
+  <div class="s-logo">
+    <div class="s-logo-mark">🛡</div>
+    <div class="s-logo-title">DeepShield</div>
+    <div class="s-logo-sub">Govt Detection Platform</div>
+  </div>
+  <div class="s-nav">
+    <div class="s-item act ripple-host" onclick="nav('dashboard',this)"><span class="s-icon">◈</span>Dashboard</div>
+    <div class="s-item ripple-host" onclick="nav('detect',this)"><span class="s-icon">⊙</span>Detect media</div>
+    <div class="s-item ripple-host" onclick="nav('cases',this)"><span class="s-icon">▦</span>Cases</div>
+    <div class="s-item ripple-host" onclick="nav('report',this)"><span class="s-icon">◧</span>File report</div>
+    <div class="s-item ripple-host" onclick="nav('evidence',this)"><span class="s-icon">◬</span>Evidence chain</div>
+  </div>
+  <div class="s-foot"><span class="s-dot"></span><span id="apiStatus">Connecting...</span></div>
+</nav>
+
+<div class="main" id="mainWrap">
+
+  <!-- DASHBOARD -->
+  <div class="page act" id="page-dashboard">
+    <div class="topbar">
+      <div><div class="page-title">Dashboard</div><div class="page-sub">Live system overview</div></div>
+      <span class="badge-role">Role: Admin</span>
+    </div>
+    <div class="stats">
+      <div class="stat s-blue ripple-host"><div class="stat-lbl">Total scans</div><div class="stat-val" id="statTotal">—</div><div class="stat-delta" style="color:var(--accent)">All time</div><div class="stat-icon">⊙</div></div>
+      <div class="stat s-red ripple-host"><div class="stat-lbl">Fakes found</div><div class="stat-val" id="statFakes">—</div><div class="stat-delta" id="statRate" style="color:var(--red)">—</div><div class="stat-icon">⚠</div></div>
+      <div class="stat s-yellow ripple-host"><div class="stat-lbl">Escalated</div><div class="stat-val" id="statEsc">—</div><div class="stat-delta" style="color:var(--yellow)">Govt filed</div><div class="stat-icon">◫</div></div>
+      <div class="stat s-green ripple-host"><div class="stat-lbl">Resolved</div><div class="stat-val" id="statRes">—</div><div class="stat-delta" style="color:var(--green)">Closed</div><div class="stat-icon">✓</div></div>
+    </div>
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">Weekly detection activity</span><span style="font-size:11px;color:var(--text3)">Last 7 days</span></div>
+      <div class="bars" id="chart"></div>
+      <div class="bar-lbls" id="chartLbls"></div>
+    </div>
+    <div class="card">
+      <div class="card-hdr"><span class="card-title">Recent cases</span><button class="btn btn-primary ripple-host" onclick="nav('cases',null)" style="font-size:12px;padding:6px 14px">View all</button></div>
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Case ID</th><th>Type</th><th>Confidence</th><th>Severity</th><th>Status</th><th>File</th></tr></thead>
+        <tbody id="dashCases"><tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text3)">No cases yet.</td></tr></tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- DETECT -->
+  <div class="page" id="page-detect">
+    <div class="topbar"><div><div class="page-title">Detect media</div><div class="page-sub">Deepfake + AI Generated Detection</div></div></div>
+    <div class="alert-box alert-info">🤖 Detects both <strong>Deepfake</strong> (face swap / manipulation) and <strong>AI Generated</strong> (DALL-E / Midjourney / SD images). Powered by Sightengine.</div>
+    <div class="card" id="uploadCard">
+      <div class="upload-zone ripple-host" id="uploadZone" onclick="document.getElementById('fileIn').click()" ondragover="event.preventDefault();this.classList.add('drag')" ondragleave="this.classList.remove('drag')" ondrop="dropFile(event)">
+        <div class="upload-icon" id="upIcon">📁</div>
+        <div class="upload-title" id="upTitle">Drop media here or click to upload</div>
+        <div class="upload-sub" id="upSub">JPG, PNG, WebP, MP4, MOV — max 100 MB</div>
+        <input type="file" id="fileIn" accept="image/*,video/*" onchange="pickFile(this.files[0])"/>
+      </div>
+      <div id="detectedFile" style="display:none">
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--bg3);border-radius:var(--radius-sm);margin-bottom:14px;border:1px solid var(--border)">
+          <span id="fileIcon" style="font-size:20px">🖼</span>
+          <div style="flex:1;min-width:0">
+            <div id="fileName" style="font-size:13px;font-weight:500;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></div>
+            <div id="fileSize" style="font-size:11px;color:var(--text3);margin-top:2px"></div>
+          </div>
+          <span style="color:var(--green);font-size:18px">✓</span>
+        </div>
+        <button class="btn btn-primary btn-full ripple-host" id="analyzeBtn" onclick="runAnalysis()">⊙ Analyze media</button>
+      </div>
+      <div id="analyzeError" style="display:none"></div>
+    </div>
+
+    <div id="resultCard" style="display:none">
+      <!-- Main verdict banner -->
+      <div id="resultBanner" class="result-banner">
+        <div class="result-icon" id="rIcon">⊙</div>
+        <div>
+          <div class="result-verdict" id="rVerdict">—</div>
+          <div class="result-sub" id="rSub">—</div>
+        </div>
+      </div>
+
+      <!-- Detection type badge -->
+      <div style="margin-bottom:14px" id="detTypeBadge"></div>
+
+      <!-- Score breakdown: Deepfake vs AI Generated -->
+      <div class="score-bars" id="scoreBars">
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Detection Scores</div>
+        <div class="score-row">
+          <div class="score-hdr">
+            <span class="score-name">🎭 Deepfake (Face Swap / Manipulation)</span>
+            <span class="score-pct" id="deepfakeScorePct" style="color:var(--red)">—</span>
+          </div>
+          <div class="score-bar"><div class="score-bar-fill" id="deepfakeBar" style="width:0%;background:var(--red)"></div></div>
+        </div>
+        <div class="score-row">
+          <div class="score-hdr">
+            <span class="score-name">🤖 AI Generated (DALL-E / Midjourney / SD)</span>
+            <span class="score-pct" id="aiGenScorePct" style="color:var(--orange)">—</span>
+          </div>
+          <div class="score-bar"><div class="score-bar-fill" id="aiGenBar" style="width:0%;background:var(--orange)"></div></div>
+        </div>
+      </div>
+
+      <!-- Meta cards -->
+      <div class="meta-row">
+        <div class="meta-card"><div class="meta-lbl">Confidence</div><div class="meta-val" id="rConf">—</div><div class="conf-bar"><div class="conf-fill" id="rBar" style="width:0%"></div></div></div>
+        <div class="meta-card"><div class="meta-lbl">Severity</div><div class="meta-val" id="rSev">—</div></div>
+        <div class="meta-card"><div class="meta-lbl">Model</div><div class="meta-val" id="rModel" style="font-size:11px">—</div></div>
+      </div>
+      <div class="meta-card" style="margin-bottom:14px"><div class="meta-lbl">Case ID</div><div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--cyan);margin-top:5px" id="rCaseId">—</div></div>
+      <div class="meta-card" style="margin-bottom:14px"><div class="meta-lbl">Media Hash (SHA-256)</div><div class="hash-box" style="margin-top:8px" id="rHash">—</div></div>
+
+      <!-- Action prompts -->
+      <div id="reportPromptDeepfake" style="display:none">
+        <div class="alert-box alert-danger">⚠ Deepfake detected — face swap or video manipulation found. File a formal report.</div>
+        <button class="btn btn-danger btn-full ripple-host" onclick="nav('report',null);prefillCase()" style="margin-bottom:10px">File report for this case →</button>
+      </div>
+      <div id="reportPromptAiGen" style="display:none">
+        <div class="alert-box alert-orange">⚠ AI Generated image detected — this media was created by an AI tool (DALL-E / Midjourney / Stable Diffusion). File a report if misused.</div>
+        <button class="btn btn-danger btn-full ripple-host" onclick="nav('report',null);prefillCase()" style="margin-bottom:10px">File report for this case →</button>
+      </div>
+      <div id="authPrompt" style="display:none">
+        <div class="alert-box alert-success">✓ Media appears authentic. No deepfake or AI generation detected.</div>
+      </div>
+      <button class="btn btn-primary btn-full ripple-host" onclick="resetDetect()" style="margin-top:8px">⊙ Analyze another media</button>
+    </div>
+  </div>
+
+  <!-- CASES -->
+  <div class="page" id="page-cases">
+    <div class="topbar">
+      <div><div class="page-title">All cases</div><div class="page-sub">Real detection records</div></div>
+      <select class="btn" id="statusFilter" onchange="filterCases()" style="padding:7px 12px;font-size:12px;cursor:pointer">
+        <option value="">All status</option><option value="pending">Pending</option>
+        <option value="under_review">Under review</option><option value="escalated">Escalated</option>
+        <option value="resolved">Resolved</option>
+      </select>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div class="tbl-wrap"><table>
+        <thead><tr><th>Case ID</th><th>File</th><th>Detection Type</th><th>Deepfake%</th><th>AI Gen%</th><th>Severity</th><th>Status</th><th>Date</th><th>Action</th></tr></thead>
+        <tbody id="casesTbody"><tr><td colspan="9" style="text-align:center;padding:28px;color:var(--text3)">No cases yet.</td></tr></tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <!-- REPORT -->
+  <div class="page" id="page-report">
+    <div class="topbar"><div><div class="page-title">File report</div><div class="page-sub">Submit to Cyber Crime authorities</div></div></div>
+    <div id="reportForm">
+      <div class="alert-box alert-warn">Your identity will be masked. Report goes to Cyber Crime Wing, MHA.</div>
+      <div class="card">
+        <div class="form-row"><label class="form-lbl">Case ID</label><input class="form-inp" id="repCaseId" placeholder="DF-2024-XXXXXX" style="font-family:'JetBrains Mono',monospace;color:var(--cyan)"/></div>
+        <div class="form-row"><label class="form-lbl">Description *</label><textarea class="form-inp" id="repDesc" rows="4" placeholder="Where found, potential source, who may be targeted..."></textarea></div>
+        <div class="form-row"><label class="form-lbl">Location (optional)</label><input class="form-inp" id="repLoc" placeholder="e.g. Delhi, Maharashtra"/></div>
+        <button class="btn btn-danger btn-full ripple-host" onclick="submitReport()" style="margin-top:6px">Submit report</button>
+      </div>
+    </div>
+    <div id="reportSuccess" style="display:none">
+      <div class="card" style="text-align:center;padding:40px">
+        <div style="font-size:48px;margin-bottom:16px">✅</div>
+        <div style="font-size:18px;font-weight:600;color:var(--green);margin-bottom:8px">Report filed successfully</div>
+        <div style="font-size:13px;color:var(--text2);margin-bottom:20px">Under admin review. Escalate to Govt from Cases section.</div>
+        <div style="background:var(--bg3);border-radius:var(--radius-sm);padding:14px;margin-bottom:20px;text-align:left;border:1px solid var(--border)">
+          <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px">Case ID</div>
+          <div id="repSuccessId" style="font-family:'JetBrains Mono',monospace;color:var(--cyan);margin-top:5px;font-size:13px">—</div>
+          <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-top:10px">Status</div>
+          <div style="color:var(--yellow);margin-top:5px;font-size:13px">Under review</div>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <button class="btn btn-primary ripple-host" onclick="nav('cases',null)">View cases</button>
+          <button class="btn btn-danger ripple-host" id="escalateFromReport">Escalate to Govt →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EVIDENCE -->
+  <div class="page" id="page-evidence">
+    <div class="topbar"><div><div class="page-title">Evidence chain</div><div class="page-sub">SHA-256 tamper-proof verification</div></div></div>
+    <div class="alert-box alert-info">Each case has a real SHA-256 hash chain stored on server. Any tampering breaks it.</div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:14px">Verify a case chain</div>
+      <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+        <input class="form-inp" id="chainInput" placeholder="Enter Case ID e.g. DF-2024-AB12CD" style="flex:1;min-width:200px"/>
+        <button class="btn btn-primary ripple-host" onclick="verifyChain()">Verify</button>
+      </div>
+      <div id="chainResult"></div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="margin-bottom:16px">How the evidence chain works</div>
+      <div class="chain-block"><div class="chain-node done">Block 0</div><div class="chain-arrow">→</div><div style="font-size:12px;color:var(--text2)">CASE_CREATED + media_hash + AI confidence</div></div>
+      <div style="padding-left:16px;font-size:11px;color:var(--text3);margin-bottom:10px;font-family:'JetBrains Mono',monospace">↓ SHA-256(prev_hash + data)</div>
+      <div class="chain-block"><div class="chain-node">Block 1</div><div class="chain-arrow">→</div><div style="font-size:12px;color:var(--text2)">REPORT_FILED + timestamp</div></div>
+      <div style="padding-left:16px;font-size:11px;color:var(--text3);margin-bottom:10px;font-family:'JetBrains Mono',monospace">↓ SHA-256(prev_hash + data)</div>
+      <div class="chain-block"><div class="chain-node">Block 2</div><div class="chain-arrow">→</div><div style="font-size:12px;color:var(--text2)">ESCALATED:MHA/YEAR/CYB/XXXXXX</div></div>
+      <div class="divider"></div>
+      <div style="font-size:13px;color:var(--green)">✓ Any alteration = hash mismatch = chain INVALID</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+const API='http://localhost:5000';
+let pickedFile=null,currentCaseId=null,allCases=[];
+
+// ── Audio ─────────────────────────────────────────
+const AC=new (window.AudioContext||window.webkitAudioContext)();
+['click','keydown','touchstart','mousedown'].forEach(ev=>
+  document.addEventListener(ev,()=>{if(AC.state==='suspended')AC.resume()},{passive:true})
+);
+function tone(f,t,tp,v){
+  try{
+    if(AC.state==='suspended')AC.resume();
+    const o=AC.createOscillator(),g=AC.createGain();
+    o.connect(g);g.connect(AC.destination);
+    o.type=tp;o.frequency.setValueAtTime(f,AC.currentTime);
+    g.gain.setValueAtTime(v,AC.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001,AC.currentTime+t);
+    o.start(AC.currentTime);o.stop(AC.currentTime+t);
+  }catch(e){}
+}
+function soundFake(){
+  setTimeout(()=>tone(200,'sawtooth',.08,.35),0);
+  setTimeout(()=>tone(170,'sawtooth',.1,.28),110);
+  setTimeout(()=>tone(140,'sawtooth',.15,.22),230);
+}
+function soundAiGen(){
+  setTimeout(()=>tone(350,'sawtooth',.08,.3),0);
+  setTimeout(()=>tone(300,'sawtooth',.1,.24),120);
+  setTimeout(()=>tone(250,'sawtooth',.15,.18),250);
+}
+function soundReal(){
+  setTimeout(()=>tone(440,'sine',.1,.25),0);
+  setTimeout(()=>tone(550,'sine',.1,.2),100);
+  setTimeout(()=>tone(660,'sine',.12,.16),210);
+  setTimeout(()=>tone(880,'sine',.22,.12),330);
+}
+function soundClick(){try{if(AC.state==='suspended')AC.resume();tone(700,'square',.04,.07)}catch(e){}}
+
+// ── Screen blink ──────────────────────────────────
+function screenBlink(color){
+  const ov=document.createElement('div');
+  ov.style.cssText=`position:fixed;inset:0;z-index:9999;pointer-events:none;background:${color};opacity:0;transition:opacity .1s ease`;
+  document.body.appendChild(ov);
+  requestAnimationFrame(()=>{
+    ov.style.opacity='0.18';
+    setTimeout(()=>ov.style.opacity='0.06',130);
+    setTimeout(()=>ov.style.opacity='0.15',260);
+    setTimeout(()=>ov.style.opacity='0',420);
+    setTimeout(()=>ov.remove(),600);
+  });
+  document.body.style.outline=`4px solid ${color}`;
+  document.body.style.outlineOffset='-4px';
+  setTimeout(()=>{document.body.style.outline='';document.body.style.outlineOffset=''},800);
+}
+
+// ── Ripple ────────────────────────────────────────
+document.addEventListener('click',e=>{
+  const el=e.target.closest('.ripple-host');
+  if(!el)return;
+  soundClick();
+  const r=document.createElement('span'),d=Math.max(el.offsetWidth,el.offsetHeight);
+  const rect=el.getBoundingClientRect();
+  r.className='ripple';
+  r.style.cssText=`width:${d}px;height:${d}px;left:${e.clientX-rect.left-d/2}px;top:${e.clientY-rect.top-d/2}px`;
+  el.appendChild(r);setTimeout(()=>r.remove(),520);
+});
+
+// ── API check ─────────────────────────────────────
+async function checkAPI(){
+  try{
+    await fetch(`${API}/api/stats`);
+    document.getElementById('apiStatus').textContent='Backend connected';
+    document.querySelector('.s-dot').style.background='var(--green)';
+  }catch{
+    document.getElementById('apiStatus').textContent='Start server.js';
+    document.querySelector('.s-dot').style.background='var(--red)';
+  }
+}
+
+// ── Nav ───────────────────────────────────────────
+function nav(page,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('act'));
+  document.querySelectorAll('.s-item').forEach(i=>i.classList.remove('act'));
+  document.getElementById('page-'+page).classList.add('act');
+  if(el)el.classList.add('act');
+  else document.querySelectorAll('.s-item').forEach(i=>{if(i.textContent.trim().toLowerCase().startsWith(page.split('_')[0]))i.classList.add('act')});
+  if(page==='dashboard')loadDashboard();
+  if(page==='cases')loadCases();
+  if(window.innerWidth<=768)closeSidebar();
+}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('overlay').classList.toggle('open')}
+function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('overlay').classList.remove('open')}
+function stPill(s){const m={pending:'pill-pending',under_review:'pill-review',escalated:'pill-escalated',resolved:'pill-resolved'};return`<span class="pill ${m[s]||''}">${s.replace('_',' ')}</span>`}
+function sevPill(s){return`<span class="pill pill-${s}">${s}</span>`}
+
+// Detection type label helper
+function detTypeBadge(type){
+  if(type==='deepfake')     return`<span class="pill pill-deepfake">🎭 Deepfake</span>`;
+  if(type==='ai_generated') return`<span class="pill pill-ai_generated">🤖 AI Generated</span>`;
+  return`<span class="pill pill-authentic">✅ Authentic</span>`;
+}
+function detTypeLabel(type){
+  if(type==='deepfake')     return'<span class="fake-lbl">🎭 Deepfake</span>';
+  if(type==='ai_generated') return'<span class="aigen-lbl">🤖 AI Generated</span>';
+  return'<span class="real-lbl">✅ Authentic</span>';
+}
+
+// ── Dashboard ─────────────────────────────────────
+async function loadDashboard(){
+  try{
+    const r=await fetch(`${API}/api/stats`),d=await r.json();
+    document.getElementById('statTotal').textContent=d.total;
+    document.getElementById('statFakes').textContent=d.fakes;
+    document.getElementById('statEsc').textContent=d.escalated;
+    document.getElementById('statRes').textContent=d.resolved;
+    document.getElementById('statRate').textContent=d.total>0?((d.fakes/d.total*100).toFixed(1)+'% rate'):'—';
+    const mx=Math.max(...d.week.map(w=>w.count),1);
+    document.getElementById('chart').innerHTML=d.week.map(w=>`<div class="bar" style="height:${Math.round(w.count/mx*100)}%" title="${w.count}"></div>`).join('');
+    document.getElementById('chartLbls').innerHTML=d.week.map(w=>`<div class="bar-lbl">${w.day}</div>`).join('');
+    const cr=await fetch(`${API}/api/cases`),cd=await cr.json();
+    allCases=cd.cases||[];
+    renderDashCases(allCases.slice(0,5));
+  }catch{
+    document.getElementById('statTotal').textContent='—';
+    document.getElementById('statFakes').textContent='—';
+    document.getElementById('statEsc').textContent='—';
+    document.getElementById('statRes').textContent='—';
+    document.getElementById('dashCases').innerHTML='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--red)">⚠ Backend not running. Run: node server.js</td></tr>';
+  }
+}
+function renderDashCases(cases){
+  if(!cases.length){document.getElementById('dashCases').innerHTML='<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--text3)">No cases yet.</td></tr>';return}
+  document.getElementById('dashCases').innerHTML=cases.map(c=>`<tr>
+    <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cyan)">${c.caseId}</td>
+    <td>${detTypeLabel(c.detectionType||( c.isDeepfake?'deepfake':'authentic'))}</td>
+    <td style="color:${c.isDeepfake?'var(--red)':'var(--green)'}">${c.confidence}%</td>
+    <td>${sevPill(c.severity)}</td><td>${stPill(c.status)}</td>
+    <td style="font-size:11px;color:var(--text2);max-width:120px;overflow:hidden;text-overflow:ellipsis">${c.fileName||'—'}</td>
+  </tr>`).join('');
+}
+
+// ── Cases ─────────────────────────────────────────
+async function loadCases(){
+  try{
+    const r=await fetch(`${API}/api/cases`),d=await r.json();
+    allCases=d.cases||[];renderCases(allCases);
+  }catch{document.getElementById('casesTbody').innerHTML='<tr><td colspan="9" style="text-align:center;padding:20px;color:var(--red)">⚠ Backend not running.</td></tr>'}
+}
+function renderCases(list){
+  if(!list.length){document.getElementById('casesTbody').innerHTML='<tr><td colspan="9" style="text-align:center;padding:24px;color:var(--text3)">No cases found.</td></tr>';return}
+  document.getElementById('casesTbody').innerHTML=list.map(c=>`<tr>
+    <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cyan)">${c.caseId}</td>
+    <td style="font-size:11px;max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${c.fileName||'—'}</td>
+    <td>${detTypeBadge(c.detectionType||(c.isDeepfake?'deepfake':'authentic'))}</td>
+    <td style="color:var(--red);font-size:12px">${c.deepfakeScore!==undefined?Math.round(c.deepfakeScore*100)+'%':'—'}</td>
+    <td style="color:var(--orange);font-size:12px">${c.aiGenScore!==undefined?Math.round(c.aiGenScore*100)+'%':'—'}</td>
+    <td>${sevPill(c.severity)}</td><td>${stPill(c.status)}</td>
+    <td style="font-size:11px;color:var(--text3)">${c.timestamp?c.timestamp.slice(0,10):'—'}</td>
+    <td style="display:flex;gap:6px;flex-wrap:wrap">
+      ${c.isDeepfake&&c.status!=='escalated'?`<button class="btn btn-danger ripple-host" onclick="escalateCase('${c.caseId}')" style="font-size:11px;padding:4px 10px">Escalate</button>`:''}
+      ${c.status==='escalated'?`<span style="color:var(--green);font-size:11px">✓ Govt filed</span>`:''}
+    </td>
+  </tr>`).join('');
+}
+function filterCases(){const f=document.getElementById('statusFilter').value;renderCases(f?allCases.filter(c=>c.status===f):allCases)}
+
+// ── File pick ─────────────────────────────────────
+function pickFile(f){
+  if(!f)return;
+  pickedFile=f;
+  const isVid=f.type.startsWith('video');
+  document.getElementById('upIcon').textContent=isVid?'🎬':'🖼';
+  document.getElementById('upTitle').textContent=f.name;
+  document.getElementById('upSub').textContent=(f.size/1024/1024).toFixed(2)+' MB — '+f.type;
+  document.getElementById('fileIcon').textContent=isVid?'🎬':'🖼';
+  document.getElementById('fileName').textContent=f.name;
+  document.getElementById('fileSize').textContent=(f.size/1024/1024).toFixed(2)+' MB';
+  document.getElementById('detectedFile').style.display='block';
+  document.getElementById('resultCard').style.display='none';
+  document.getElementById('analyzeError').style.display='none';
+}
+function dropFile(e){e.preventDefault();document.getElementById('uploadZone').classList.remove('drag');const f=e.dataTransfer.files[0];if(f)pickFile(f)}
+
+// ── Reset ─────────────────────────────────────────
+function resetDetect(){
+  pickedFile=null;
+  document.getElementById('resultCard').style.display='none';
+  document.getElementById('detectedFile').style.display='none';
+  document.getElementById('analyzeError').style.display='none';
+  document.getElementById('upIcon').textContent='📁';
+  document.getElementById('upTitle').textContent='Drop media here or click to upload';
+  document.getElementById('upSub').textContent='JPG, PNG, WebP, MP4, MOV — max 100 MB';
+  document.getElementById('fileIn').value='';
+  document.getElementById('analyzeBtn').textContent='⊙ Analyze media';
+  document.getElementById('analyzeBtn').disabled=false;
+}
+
+// ── Analyze ───────────────────────────────────────
+async function runAnalysis(){
+  if(!pickedFile)return;
+  const btn=document.getElementById('analyzeBtn'),card=document.getElementById('uploadCard');
+  btn.textContent='Analyzing…';btn.disabled=true;
+  card.classList.add('scan-anim');
+  document.getElementById('resultCard').style.display='none';
+  document.getElementById('analyzeError').style.display='none';
+  try{
+    const fd=new FormData();fd.append('file',pickedFile);
+    const resp=await fetch(`${API}/api/detect`,{method:'POST',body:fd});
+    const data=await resp.json();
+    card.classList.remove('scan-anim');
+    if(!resp.ok||!data.success){
+      showErr(data.error||'Detection failed');
+      btn.textContent='⊙ Analyze media';btn.disabled=false;return;
+    }
+    currentCaseId=data.caseId;
+    showResult(data);
+    loadDashboard();
+  }catch(err){
+    card.classList.remove('scan-anim');
+    showErr('Cannot reach backend. Make sure server.js is running on port 5000.');
+    btn.textContent='⊙ Analyze media';btn.disabled=false;
+  }
+}
+function showErr(msg){
+  const el=document.getElementById('analyzeError');
+  el.innerHTML=`<div class="alert-box alert-danger">⚠ ${msg}</div>`;
+  el.style.display='block';
+}
+
+// ── Show Result ───────────────────────────────────
+function showResult(data){
+  const type=data.detectionType||( data.isDeepfake?'deepfake':'authentic');
+  const fake=data.isDeepfake;
+  const conf=data.confidence;
+  const sev=data.severity;
+  const deepfakePct=Math.round((data.deepfakeScore||0)*100);
+  const aiGenPct=Math.round((data.aiGenScore||0)*100);
+
+  // Sound
+  if(type==='deepfake')          { if(AC.state==='suspended')AC.resume().then(soundFake); else soundFake(); }
+  else if(type==='ai_generated') { if(AC.state==='suspended')AC.resume().then(soundAiGen); else soundAiGen(); }
+  else                           { if(AC.state==='suspended')AC.resume().then(soundReal); else soundReal(); }
+
+  // Screen blink color
+  const blinkColor = type==='deepfake'?'#ef4444':type==='ai_generated'?'#f97316':'#22c55e';
+  screenBlink(blinkColor);
+
+  // Banner
+  const banner=document.getElementById('resultBanner');
+  const bannerClass = type==='deepfake'?'fake':type==='ai_generated'?'aigen':'real';
+  const popClass    = type==='deepfake'?'pop-red':type==='ai_generated'?'pop-orange':'pop-green';
+  banner.className='result-banner '+bannerClass;
+  banner.classList.add(popClass);
+  setTimeout(()=>banner.classList.remove(popClass),1500);
+
+  // Main flash
+  const main=document.getElementById('mainWrap');
+  const flashClass = type==='deepfake'?'flash-red':type==='ai_generated'?'flash-orange':'flash-green';
+  main.classList.add(flashClass);
+  setTimeout(()=>main.classList.remove(flashClass),900);
+
+  // Icon & verdict
+  const iconMap = {deepfake:'⚠️',ai_generated:'🤖',authentic:'✅'};
+  document.getElementById('rIcon').textContent=iconMap[type]||'⊙';
+  document.getElementById('rVerdict').textContent=data.verdict;
+
+  // Sub text
+  const subMap = {
+    deepfake:`Confidence: ${conf}% — Face swap or video manipulation detected`,
+    ai_generated:`Confidence: ${conf}% — Image created by AI tool (DALL-E / Midjourney / SD)`,
+    authentic:`Confidence: ${conf}% — No manipulation detected`
+  };
+  document.getElementById('rSub').textContent=subMap[type]||'';
+
+  // Detection type badge
+  document.getElementById('detTypeBadge').innerHTML=detTypeBadge(type);
+
+  // Score bars
+  document.getElementById('deepfakeScorePct').textContent=deepfakePct+'%';
+  document.getElementById('aiGenScorePct').textContent=aiGenPct+'%';
+  setTimeout(()=>{
+    document.getElementById('deepfakeBar').style.width=deepfakePct+'%';
+    document.getElementById('aiGenBar').style.width=aiGenPct+'%';
+  },50);
+
+  // Confidence bar
+  const confEl=document.getElementById('rConf');
+  confEl.textContent=conf+'%';
+  const confColor = type==='deepfake'?'var(--red)':type==='ai_generated'?'var(--orange)':'var(--green)';
+  confEl.style.color=confColor;
+  const bar=document.getElementById('rBar');
+  bar.style.width='0%';bar.style.background=confColor;
+  setTimeout(()=>bar.style.width=conf+'%',50);
+
+  // Severity
+  const sevEl=document.getElementById('rSev');
+  sevEl.textContent=sev.charAt(0).toUpperCase()+sev.slice(1);
+  sevEl.style.color=sev==='critical'?'var(--red)':sev==='high'?'var(--yellow)':sev==='medium'?'var(--accent)':'var(--text2)';
+
+  document.getElementById('rModel').textContent=data.model||'Sightengine AI';
+  document.getElementById('rCaseId').textContent=data.caseId;
+  document.getElementById('rHash').textContent=data.mediaHash;
+
+  // Action prompts
+  document.getElementById('reportPromptDeepfake').style.display=type==='deepfake'?'block':'none';
+  document.getElementById('reportPromptAiGen').style.display=type==='ai_generated'?'block':'none';
+  document.getElementById('authPrompt').style.display=type==='authentic'?'block':'none';
+
+  document.getElementById('resultCard').style.display='block';
+}
+
+// ── Report ────────────────────────────────────────
+function prefillCase(){if(currentCaseId)document.getElementById('repCaseId').value=currentCaseId}
+async function submitReport(){
+  const caseId=document.getElementById('repCaseId').value.trim();
+  const desc=document.getElementById('repDesc').value.trim();
+  const loc=document.getElementById('repLoc').value.trim();
+  if(!desc){alert('Please enter a description');return}
+  if(!caseId){alert('Please enter a Case ID');return}
+  try{
+    const r=await fetch(`${API}/api/report`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({caseId,description:desc,location:loc})});
+    const d=await r.json();
+    if(!d.success){alert('Error: '+(d.error||'Failed'));return}
+    soundReal();
+    document.getElementById('reportForm').style.display='none';
+    document.getElementById('repSuccessId').textContent=caseId;
+    document.getElementById('reportSuccess').style.display='block';
+    document.getElementById('escalateFromReport').onclick=()=>escalateCase(caseId);
+  }catch{alert('Backend not reachable. Start server.js')}
+}
+
+// ── Escalate ──────────────────────────────────────
+async function escalateCase(caseId){
+  try{
+    const r=await fetch(`${API}/api/escalate`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({caseId})});
+    const d=await r.json();
+    if(!d.success){alert('Error: '+(d.error||'Failed'));return}
+    showGovtPopup(d);loadCases();loadDashboard();
+  }catch{alert('Backend not reachable. Start server.js')}
+}
+
+// ── Govt Popup ────────────────────────────────────
+function showGovtPopup(d){
+  soundFake();
+  document.getElementById('govtBody').innerHTML=`
+    <div class="govt-row"><span class="govt-key">Case Reference</span><span class="govt-val accent">${d.caseId}</span></div>
+    <div class="govt-row"><span class="govt-key">Govt Reference No.</span><span class="govt-val success">${d.govtRef}</span></div>
+    <div class="govt-row"><span class="govt-key">Authority</span><span class="govt-val">${d.authority}</span></div>
+    <div class="govt-row"><span class="govt-key">Portal</span><span class="govt-val accent">cybercrime.gov.in</span></div>
+    <div class="govt-row"><span class="govt-key">Status</span><span class="govt-val success">✓ ESCALATED</span></div>
+    <div class="govt-row"><span class="govt-key">Filed At</span><span class="govt-val">${new Date().toLocaleString('en-IN')}</span></div>
+  `;
+  document.getElementById('govtOverlay').classList.add('show');
+}
+function closeGovt(){document.getElementById('govtOverlay').classList.remove('show')}
+
+// ── Evidence ──────────────────────────────────────
+async function verifyChain(){
+  const id=document.getElementById('chainInput').value.trim();
+  const el=document.getElementById('chainResult');
+  if(!id){el.innerHTML='<div class="alert-box alert-danger">Enter a Case ID</div>';return}
+  try{
+    const r=await fetch(`${API}/api/cases/${id}/chain`),d=await r.json();
+    if(!r.ok){el.innerHTML=`<div class="alert-box alert-danger">⚠ Case not found: ${id}</div>`;soundFake();return}
+    if(d.valid){
+      soundReal();
+      el.innerHTML=`<div class="alert-box alert-success">✓ Chain VALID for <strong>${id}</strong><div class="hash-box" style="margin-top:8px">${d.chain.map(b=>`Block ${b.index}: ${b.action} | ${b.hash.slice(0,20)}…`).join('\n')}</div></div>`;
+    }else{
+      soundFake();
+      el.innerHTML=`<div class="alert-box alert-danger">⚠ Chain INVALID — tampering detected: ${id}</div>`;
+    }
+  }catch{el.innerHTML='<div class="alert-box alert-danger">Backend not reachable.</div>'}
+}
+
+checkAPI();
+loadDashboard();
+</script>
+</body>
+</html>
